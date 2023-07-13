@@ -3,8 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+const db = require("./db");
 const authRoute = require("./routes/auth");
-const qaRoute = require("./routes/qa");
 
 dotenv.config();
 
@@ -19,9 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // use the app for routes here and then error middleware next()
-
 app.use("/api/auth/", authRoute);
-app.use("/api/qa/", qaRoute);
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 409;
@@ -36,6 +34,15 @@ app.use((err, req, res, next) => {
 
 // define port from env file and an alternative port
 const port = process.env.PORT || 5001;
+
+// database connected or not ?
+db.getConnection(function (err) {
+  if (err) {
+    console.error("Error connecting to the database:", err);
+    return;
+  }
+  console.log("Connected to the database");
+});
 
 app.listen(port, () => {
   console.log(`App is now running on port: [${port}]`);
