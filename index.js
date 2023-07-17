@@ -10,7 +10,13 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+  })
+);
 
 // parse application / www url encoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -35,7 +41,7 @@ app.use((err, req, res, next) => {
 });
 
 // define port from env file and an alternative port
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
   console.log(`App is now running on port: [${port}]`);

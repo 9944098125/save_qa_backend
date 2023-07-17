@@ -7,6 +7,15 @@ const db = mysql.createPool({
   database: "save_qa",
 });
 
+db.getConnection((error) => {
+  if (error) {
+    console.error("Error connecting to the database:", error);
+  } else {
+    console.log("Connected to the database!");
+    // Do further database operations here
+  }
+});
+
 module.exports = db;
 
 // createConnection: This method creates a single connection to the

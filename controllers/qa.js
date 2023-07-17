@@ -2,6 +2,8 @@ const db = require("../db");
 
 const createQA = (req, res, next) => {
   const { question, answer, tool_id, user_id } = req.body;
+  // taking these details from request body
+  // query for creating a row
   const sql =
     "INSERT INTO qa (question, answer, tool_id, user_id) VALUES (?, ?, ?, ?)";
   const values = [question, answer, tool_id, user_id];
@@ -18,6 +20,7 @@ const createQA = (req, res, next) => {
 
 const getQA = (req, res, next) => {
   const { userId, toolId } = req.params;
+  // getting qa sets according to the user and tool_id
   const sql = "SELECT * FROM qa WHERE user_id = ? AND tool_id = ?";
   const values = [userId, toolId];
   db.query(sql, values, (err, result) => {
@@ -25,17 +28,19 @@ const getQA = (req, res, next) => {
       next(err);
     } else if (result) {
       // console.log(result);
+      // result is an array
       res.status(200).json(result);
     }
   });
 };
 
 const updateQA = (req, res, next) => {
-  const { question, answer, tool_id } = req.body;
+  const { question, answer } = req.body;
   const { qaId } = req.params;
-  const sql =
-    "UPDATE qa SET question = ?, answer = ?, tool_id = ? WHERE id = ?";
-  const values = [question, answer, tool_id, qaId];
+  // taking question and answer from request body and that id of qa set in params
+  // setting that body in the qa table where it is the given id
+  const sql = "UPDATE qa SET question = ?, answer = ? WHERE id = ?";
+  const values = [question, answer, qaId];
   db.query(sql, values, (err, result) => {
     if (err) {
       return next(err);
@@ -60,6 +65,7 @@ const getAllQA = (req, res, next) => {
 
 const deleteQA = (req, res, next) => {
   const { qaId } = req.params;
+  // deleting the qa set with getting it's id
   const sql = "DELETE FROM qa WHERE ID = ?";
   db.query(sql, [qaId], (err, result) => {
     if (err) {
