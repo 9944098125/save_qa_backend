@@ -4,6 +4,11 @@ const createQA = (req, res, next) => {
   const { question, answer, tool_id, user_id } = req.body;
   // taking these details from request body
   // query for creating a row
+  if (answer.length < 50) {
+    return res
+      .status(400)
+      .json({ message: "Answer should be at least 50 characters" });
+  }
   const sql =
     "INSERT INTO qa (question, answer, tool_id, user_id) VALUES (?, ?, ?, ?)";
   const values = [question, answer, tool_id, user_id];
@@ -47,7 +52,9 @@ const updateQA = (req, res, next) => {
     } else if (result.affectedRows === 0) {
       return res.status(400).json({ message: "Something gone wrong..." });
     } else if (result.affectedRows > 0) {
-      res.status(200).json({ message: "Update Success" });
+      res
+        .status(200)
+        .json({ message: "Updated the question and answer Successfully" });
     }
   });
 };
