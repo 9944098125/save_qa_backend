@@ -1,0 +1,12 @@
+######
+POST http://localhost:5000/api/auth/login
+content-type: application/json
+
+{
+    "email":"srinivas_akella@yopmail.com",
+    "password":"Srinivas@8"
+}
+
+#######
+GET http://localhost:5000/api/qa/get-qa/1/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY5MDM2ODYwM30.kdtQJtPTOezlidVFXIjW4kTc6s7zMN37kNKjFbiAABY
