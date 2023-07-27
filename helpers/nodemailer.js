@@ -8,7 +8,7 @@ async function sendRegistrationEmail(email) {
       service: "Gmail", // service provider
       auth: {
         user: "srinivas72075@gmail.com", // Replace with your email address
-        pass: "kbty hojp wbje opet", // Replace with your email password
+        pass: "rvtn mpnt moyb ofjr", // Replace with your email password
       },
     });
 
