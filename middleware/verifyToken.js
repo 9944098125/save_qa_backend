@@ -19,6 +19,7 @@ const verifyToken = (req, res, next) => {
 
     // Attach the decoded payload to the request object for use in subsequent middleware or routes
     req.user = decoded;
+    console.log(req.user);
     // allowing that token to proceed
     next();
   });
